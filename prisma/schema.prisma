@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique @db.VarChar(45)
+  password   String   @db.VarChar(45)
+  status     Boolean  @default(true)
+  createTime DateTime @default(now())
+}
+
+model AnalysisArticle {
+  id           Int      @id @default(autoincrement())
+  articleCount Int      @default(0)
+  viewCount    Int      @default(0)
+  commentCount Int      @default(0)
+  createTime   DateTime @default(now())
+}
+
+model Article {
+  id           Int      @id @default(autoincrement())
+  title        String   @db.VarChar(45)
+  coverPicture String   @db.VarChar(200)
+  intro        String   @db.VarChar(250)
+  content      String   @db.Text
+  viewCount    Int      @default(0)
+  status       Boolean  @default(false)
+  createTime   DateTime @default(now())
+  updateTime   DateTime @default(now())
+}
+
+model Category {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique @db.VarChar(45)
+  sort       Int      @default(0)
+  status     Boolean  @default(true)
+  createTime DateTime @default(now())
+}
+
+model CommentArticle {
+  id         Int      @id @default(autoincrement())
+  content    String   @db.VarChar(500)
+  status     Boolean  @default(false)
+  createTime DateTime @default(now())
+  articleId  Int
+}
