@@ -13,14 +13,16 @@ export class AccountsService {
         })
     }
 
-    findAll(name: string, pageIndex: number, pageSize: number) {
-        return this.prisma.account.findMany({
-            skip: (pageIndex - 1) * pageSize,
-            take: pageSize,
-            where: {
-                name: name
-            }
+    async findAll(query: { keyWord: string, pageIndex: number, pageSize: number }) {
+        const list = await this.prisma.account.findMany({
+            where: { name: { contains: query.keyWord } },
+            skip: (query.pageIndex - 1) * query.pageSize,
+            take: +query.pageSize
         })
+        const total = await this.prisma.account.count({
+            where: { name: { contains: query.keyWord } }
+        })
+        return { list, total }
     }
 
     findOne(id: number) {
@@ -30,7 +32,10 @@ export class AccountsService {
     }
 
     update(id: number, updateAccountDto: UpdateAccountDto) {
-        return '' // this.prisma.account.update()
+        return this.prisma.account.update({
+            where: { id },
+            data: updateAccountDto
+        })
     }
 
     remove(id: number) {
