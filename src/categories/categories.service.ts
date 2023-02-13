@@ -1,26 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 
 @Injectable()
 export class CategoriesService {
-  create(createCategoryDto: CreateCategoryDto) {
-    return 'This action adds a new category';
-  }
 
-  findAll() {
-    return `This action returns all categories`;
-  }
+    constructor(private readonly prisma: PrismaService) {}
 
-  findOne(id: number) {
-    return `This action returns a #${id} category`;
-  }
+    create(createCategoryDto: CreateCategoryDto) {
+        return this.prisma.category.create({
+            data: createCategoryDto
+        })
+    }
 
-  update(id: number, updateCategoryDto: UpdateCategoryDto) {
-    return `This action updates a #${id} category`;
-  }
+    async findAll(query: { keyWord: string, pageIndex: number, pageSize: number }) {
+        const list = await this.prisma.category.findMany({
+            where: {
+                name: { contains: query.keyWord }
+            },
+            skip: (query.pageIndex - 1) * query.pageSize,
+            take: +query.pageSize
+        })
+        const total = await this.prisma.category.count({ where: { name: { contains: query.keyWord } } })
+        return { list, total }
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
-  }
+    findOne(id: number) {
+        return this.prisma.category.findUnique({
+            where: { id }
+        })
+    }
+
+    update(id: number, updateCategoryDto: UpdateCategoryDto) {
+        return this.prisma.category.update({
+            where: { id },
+            data: updateCategoryDto
+        })
+    }
+
+    remove(id: number) {
+        return this.prisma.category.delete({
+            where: { id }
+        })
+    }
 }
