@@ -5,7 +5,12 @@ import { Response } from './common/response'
 import { HttpFilter } from './common/filter'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create(AppModule, {
+    cors: {
+        origin: '*',
+        credentials: true
+    }
+  })
   const options = new DocumentBuilder().setTitle('OCCMN API文档').build()
   const document = SwaggerModule.createDocument(app, options)
   SwaggerModule.setup('/api-docs', app, document)

@@ -14,6 +14,8 @@ export class AccountsService {
     }
 
     async findAll(query: { keyWord: string, pageIndex: number, pageSize: number }) {
+        // console.log({query});
+        
         const list = await this.prisma.account.findMany({
             where: { name: { contains: query.keyWord } },
             skip: (query.pageIndex - 1) * query.pageSize,
