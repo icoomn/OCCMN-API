@@ -5,4 +5,10 @@ export class CreateCategoryDto {
 
     @ApiProperty({ example: 5 })
     sort?: number
+
+	@ApiProperty()
+    createTime?: string
+
+	@ApiProperty()
+    status?: boolean
 }
