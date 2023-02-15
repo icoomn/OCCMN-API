@@ -15,9 +15,7 @@ export class AccountsController {
     }
 
     @Get()
-    findAll(@Query() query: { keyWord: string, pageIndex: number, pageSize: number }) {
-        console.log({query});
-        
+    findAll(@Query() query: { keyWord: string, status: string, pageIndex: number, pageSize: number }) {
         return this.accountsService.findAll(query);
     }
 
