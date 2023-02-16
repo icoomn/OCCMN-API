@@ -14,15 +14,19 @@ export class CategoriesService {
         })
     }
 
-    async findAll(query: { keyWord: string, pageIndex: number, pageSize: number }) {
+    async findAll(query: { keyWord: string, status: string, pageIndex: number, pageSize: number }) {
         const list = await this.prisma.category.findMany({
             where: {
-                name: { contains: query.keyWord }
+                name: { contains: query.keyWord },
+				status: query.status === '' ? undefined : query.status === 'true'
             },
             skip: (query.pageIndex - 1) * query.pageSize,
             take: +query.pageSize
         })
-        const total = await this.prisma.category.count({ where: { name: { contains: query.keyWord } } })
+        const total = await this.prisma.category.count({ where: { 
+			name: { contains: query.keyWord },
+			status: query.status === '' ? undefined : query.status === 'true'
+		} })
         return { list, total }
     }
 

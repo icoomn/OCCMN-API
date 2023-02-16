@@ -15,7 +15,7 @@ export class CategoriesController {
   }
 
   @Get()
-  findAll(@Query() query: { keyWord: string, pageIndex: number, pageSize: number }) {
+  findAll(@Query() query: { keyWord: string, status: string, pageIndex: number, pageSize: number }) {
     return this.categoriesService.findAll(query);
   }
 
