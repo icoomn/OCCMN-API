@@ -3,9 +3,11 @@ lockfileVersion: 5.4
 specifiers:
   '@nestjs/cli': ^9.0.0
   '@nestjs/common': ^9.0.0
+  '@nestjs/config': ^2.3.1
   '@nestjs/core': ^9.0.0
   '@nestjs/jwt': ^10.0.2
   '@nestjs/mapped-types': '*'
+  '@nestjs/passport': ^9.0.3
   '@nestjs/platform-express': ^9.0.0
   '@nestjs/schematics': ^9.0.0
   '@nestjs/swagger': ^6.2.1
@@ -22,6 +24,7 @@ specifiers:
   eslint-config-prettier: ^8.3.0
   eslint-plugin-prettier: ^4.0.0
   jest: 29.3.1
+  passport: ^0.6.0
   passport-jwt: ^4.0.1
   prettier: ^2.3.2
   prisma: ^4.10.0
@@ -39,12 +42,15 @@ specifiers:
 
 dependencies:
   '@nestjs/common': 9.3.5_mnr6j2del53muneqly5h4y27ai
+  '@nestjs/config': 2.3.1_lbuxfzim43akipncy7qb6bj2oi
   '@nestjs/core': 9.3.5_5xwwxswyprgbylk4mqojfsugna
   '@nestjs/jwt': 10.0.2_@nestjs+common@9.3.5
   '@nestjs/mapped-types': 1.2.2_dr5uch5f7jtjxkfwd5vurtbqhu
+  '@nestjs/passport': 9.0.3_aacj5lcofpjluz66c2ew5kwpzm
   '@nestjs/platform-express': 9.3.5_vtjd3ozrxh4msyvkhv3qln6oeu
   '@nestjs/swagger': 6.2.1_uwxvp563lh7tyboghnratoxo3u
   '@prisma/client': 4.10.0_prisma@4.10.0
+  passport: 0.6.0
   passport-jwt: 4.0.1
   reflect-metadata: 0.1.13
   rxjs: 7.8.0
@@ -915,6 +921,22 @@ packages:
       tslib: 2.5.0
       uid: 2.0.1
 
+  /@nestjs/config/2.3.1_lbuxfzim43akipncy7qb6bj2oi:
+    resolution: {integrity: sha512-Ckzel0NZ9CWhNsLfE1hxfDuxJuEbhQvGxSlmZ1/X8awjRmAA/g3kT6M1+MO1SHj1wMtPyUfd9WpwkiqFbiwQgA==}
+    peerDependencies:
+      '@nestjs/common': ^7.0.0 || ^8.0.0 || ^9.0.0
+      reflect-metadata: ^0.1.13
+      rxjs: ^6.0.0 || ^7.2.0
+    dependencies:
+      '@nestjs/common': 9.3.5_mnr6j2del53muneqly5h4y27ai
+      dotenv: 16.0.3
+      dotenv-expand: 10.0.0
+      lodash: 4.17.21
+      reflect-metadata: 0.1.13
+      rxjs: 7.8.0
+      uuid: 9.0.0
+    dev: false
+
   /@nestjs/core/9.3.5_5xwwxswyprgbylk4mqojfsugna:
     resolution: {integrity: sha512-dRVasVaIvNVTvoSXMNDS3aQYPwJt30y59i6i29ZjK+kifmBVgThYLev1tAOLVmao4Pmxcua8NNNAg2UZ2RxlQA==}
     requiresBuild: true
@@ -972,6 +994,16 @@ packages:
     dependencies:
       '@nestjs/common': 9.3.5_mnr6j2del53muneqly5h4y27ai
       reflect-metadata: 0.1.13
+    dev: false
+
+  /@nestjs/passport/9.0.3_aacj5lcofpjluz66c2ew5kwpzm:
+    resolution: {integrity: sha512-HplSJaimEAz1IOZEu+pdJHHJhQyBOPAYWXYHfAPQvRqWtw4FJF1VXl1Qtk9dcXQX1eKytDtH+qBzNQc19GWNEg==}
+    peerDependencies:
+      '@nestjs/common': ^8.0.0 || ^9.0.0
+      passport: ^0.4.0 || ^0.5.0 || ^0.6.0
+    dependencies:
+      '@nestjs/common': 9.3.5_mnr6j2del53muneqly5h4y27ai
+      passport: 0.6.0
     dev: false
 
   /@nestjs/platform-express/9.3.5_vtjd3ozrxh4msyvkhv3qln6oeu:
@@ -2389,6 +2421,16 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dotenv-expand/10.0.0:
+    resolution: {integrity: sha512-GopVGCpVS1UKH75VKHGuQFqS1Gusej0z4FyQkPdwjil2gNIv+LNsqBlboOzpJFZKVT95GkCyWJbBSdFEFUWI2A==}
+    engines: {node: '>=12'}
+    dev: false
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /ecdsa-sig-formatter/1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
@@ -4180,6 +4222,15 @@ packages:
     engines: {node: '>= 0.4.0'}
     dev: false
 
+  /passport/0.6.0:
+    resolution: {integrity: sha512-0fe+p3ZnrWRW74fe8+SvCyf4a3Pb2/h7gFkQ8yTJpAO50gDzlfjZUZTO1k5Eg9kUct22OxHLqDZoKUWRHOh9ug==}
+    engines: {node: '>= 0.4.0'}
+    dependencies:
+      passport-strategy: 1.0.0
+      pause: 0.0.1
+      utils-merge: 1.0.1
+    dev: false
+
   /path-exists/4.0.0:
     resolution: {integrity: sha512-ak9Qy5Q7jYb2Wwcey5Fpvg2KoAc/ZIhLSLOSBmRmygPsGwkVVt0fZa0qrtMz+m6tJTAHfZQ8FnmB4MG4LWy7/w==}
     engines: {node: '>=8'}
@@ -4209,6 +4260,10 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
     dev: true
+
+  /pause/0.0.1:
+    resolution: {integrity: sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==}
+    dev: false
 
   /picocolors/1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
@@ -5043,6 +5098,11 @@ packages:
   /utils-merge/1.0.1:
     resolution: {integrity: sha512-pMZTvIkT1d+TFGvDOqodOclx0QWkkgi6Tdoa8gC8ffGAAqz9pzPTZWAybbsHHoED/ztMtkv/VoYTYyShUn81hA==}
     engines: {node: '>= 0.4.0'}
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
+    hasBin: true
+    dev: false
 
   /v8-compile-cache-lib/3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}

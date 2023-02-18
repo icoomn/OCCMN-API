@@ -11,12 +11,8 @@ export class HttpFilter implements ExceptionFilter {
         const status = exception.getStatus()
         response.status(status).json({
             data: null,
-            code: '9999',
-            message: `HTTP状态码：${status}， ${exception.message}`
-            // status,
-            // time: new Date(),
-            // path: request.url,
-            // success: false
+            code: status.toString(),
+            message: `HTTP状态码：${status}，接口地址：${request.url}，${exception.message}`
         })
     }
 }

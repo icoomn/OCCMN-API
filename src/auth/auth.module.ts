@@ -1,9 +1,19 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { JwtStrategy } from './strategies/jwt.strategy';
 
 @Module({
-  controllers: [AuthController],
-  providers: [AuthService]
+    imports: [
+        JwtModule.register({
+            secret: process.env.SECRET,
+            signOptions: {
+                expiresIn: '60s'
+            }
+        })
+    ],
+    controllers: [AuthController],
+    providers: [AuthService, JwtStrategy]
 })
-export class AuthModule {}
+export class AuthModule { }

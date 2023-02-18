@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from './dto/create-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { ApiTags } from '@nestjs/swagger'
+import { AuthGuard } from '@nestjs/passport'
 
 @Controller('categories')
 @ApiTags('分类接口')
@@ -14,6 +15,7 @@ export class CategoriesController {
     return this.categoriesService.create(createCategoryDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(@Query() query: { keyWord: string, status: string, pageIndex: number, pageSize: number }) {
     return this.categoriesService.findAll(query);
