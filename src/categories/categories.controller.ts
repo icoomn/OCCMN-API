@@ -6,6 +6,7 @@ import { ApiTags } from '@nestjs/swagger'
 import { AuthGuard } from '@nestjs/passport'
 
 @Controller('categories')
+@UseGuards(AuthGuard('jwt'))
 @ApiTags('分类接口')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}
@@ -15,7 +16,6 @@ export class CategoriesController {
     return this.categoriesService.create(createCategoryDto);
   }
 
-  @UseGuards(AuthGuard('jwt'))
   @Get()
   findAll(@Query() query: { keyWord: string, status: string, pageIndex: number, pageSize: number }) {
     return this.categoriesService.findAll(query);
