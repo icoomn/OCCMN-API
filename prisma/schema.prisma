@@ -1,52 +1,73 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
 }
 
 model Account {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique @db.VarChar(45)
-  password   String   @db.VarChar(45)
-  status     Boolean  @default(true)
-  createTime DateTime @default(now())
+    id         String   @id @default(uuid())
+    name       String   @unique @db.VarChar(45)
+    password   String   @db.VarChar(45)
+    status     Boolean  @default(true)
+    createTime DateTime @default(now())
+    role       Role     @relation(fields: [roleId], references: [id])
+    roleId     String
 }
 
-model AnalysisArticle {
-  id           Int      @id @default(autoincrement())
-  articleCount Int      @default(0)
-  viewCount    Int      @default(0)
-  commentCount Int      @default(0)
-  createTime   DateTime @default(now())
+model Role {
+    id          String       @id @default(uuid())
+    name        String       @unique @db.VarChar(45)
+    accounts    Account[]
+    permissions Permission[]
+}
+
+model Permission {
+    id       String  @id @default(uuid())
+    name     String  @unique @db.VarChar(45)
+    type     Int     @default(1) @db.TinyInt
+    path     String? @db.VarChar(200)
+    parentId String
+    roles    Role[]
 }
 
 model Article {
-  id           Int      @id @default(autoincrement())
-  title        String   @db.VarChar(45)
-  coverPicture String   @db.VarChar(200)
-  intro        String   @db.VarChar(250)
-  content      String   @db.Text
-  viewCount    Int      @default(0)
-  status       Boolean  @default(false)
-  createTime   DateTime @default(now())
-  updateTime   DateTime @default(now())
+    id           String     @id @default(uuid())
+    title        String     @db.VarChar(45)
+    coverPicture String     @db.VarChar(200)
+    intro        String     @db.VarChar(250)
+    content      String     @db.Text
+    viewCount    Int        @default(0)
+    status       Boolean    @default(false)
+    createTime   DateTime   @default(now())
+    updateTime   DateTime   @default(now()) @updatedAt()
+    categories   Category[]
+    comments     Comment[]
 }
 
 model Category {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique @db.VarChar(45)
-  sort       Int      @default(0)
-  status     Boolean  @default(true)
-  createTime DateTime @default(now())
+    id         String    @id @default(uuid())
+    name       String    @unique @db.VarChar(45)
+    sort       Int       @default(0)
+    status     Boolean   @default(true)
+    createTime DateTime  @default(now())
+    articles   Article[]
 }
 
-model CommentArticle {
-  id         Int      @id @default(autoincrement())
-  content    String   @db.VarChar(500)
-  status     Boolean  @default(false)
-  createTime DateTime @default(now())
-  articleId  Int
+model Comment {
+    id         String   @id @default(uuid())
+    content    String   @db.VarChar(500)
+    status     Boolean  @default(false)
+    createTime DateTime @default(now())
+    article    Article  @relation(fields: [articleId], references: [id])
+    articleId  String
+}
+
+model Reward {
+    id String @id @default(uuid())
+    amount Float @default(0)
+    payMethod String @db.VarChar(45)
+    createTime DateTime @default(now())
 }
