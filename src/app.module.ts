@@ -5,6 +5,10 @@ import { ArticlesModule } from './articles/articles.module'
 import { PrismaModule } from './prisma/prisma.module'
 import { AuthModule } from './auth/auth.module'
 import { ConfigModule } from '@nestjs/config'
+import { RolesModule } from './roles/roles.module';
+import { PermissionsModule } from './permissions/permissions.module';
+import { RewardsModule } from './rewards/rewards.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
     imports: [
@@ -13,7 +17,11 @@ import { ConfigModule } from '@nestjs/config'
         AuthModule,
         AccountsModule,
         CategoriesModule,
-        ArticlesModule
+        ArticlesModule,
+        RolesModule,
+        PermissionsModule,
+        RewardsModule,
+        CommentsModule
     ],
     controllers: [],
     providers: [],

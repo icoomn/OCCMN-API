@@ -7,8 +7,11 @@ export class CreateAccountDto {
     password: string
 
     @ApiProperty()
+    status?: boolean
+
+	@ApiProperty()
     createTime?: Date
 
-    @ApiProperty()
-    status?: boolean
+	@ApiProperty()
+	roleId: string
 }

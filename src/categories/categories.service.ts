@@ -30,20 +30,20 @@ export class CategoriesService {
         return { list, total }
     }
 
-    findOne(id: number) {
+    findOne(id: string) {
         return this.prisma.category.findUnique({
             where: { id }
         })
     }
 
-    update(id: number, updateCategoryDto: UpdateCategoryDto) {
+    update(id: string, updateCategoryDto: UpdateCategoryDto) {
         return this.prisma.category.update({
             where: { id },
             data: updateCategoryDto
         })
     }
 
-    remove(id: number) {
+    remove(id: string) {
         return this.prisma.category.delete({
             where: { id }
         })

@@ -1,11 +1,11 @@
 -- CreateTable
 CREATE TABLE `Account` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(36) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     `password` VARCHAR(45) NOT NULL,
     `status` BOOLEAN NOT NULL DEFAULT true,
     `createTime` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `roleId` VARCHAR(191) NOT NULL,
+    `roleId` VARCHAR(36) NOT NULL,
 
     UNIQUE INDEX `Account_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -13,7 +13,7 @@ CREATE TABLE `Account` (
 
 -- CreateTable
 CREATE TABLE `Role` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(36) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
 
     UNIQUE INDEX `Role_name_key`(`name`),
@@ -22,11 +22,11 @@ CREATE TABLE `Role` (
 
 -- CreateTable
 CREATE TABLE `Permission` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(36) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     `type` TINYINT NOT NULL DEFAULT 1,
     `path` VARCHAR(200) NULL,
-    `parentId` VARCHAR(191) NOT NULL,
+    `parentId` VARCHAR(36) NOT NULL,
 
     UNIQUE INDEX `Permission_name_key`(`name`),
     PRIMARY KEY (`id`)
@@ -34,7 +34,7 @@ CREATE TABLE `Permission` (
 
 -- CreateTable
 CREATE TABLE `Article` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(36) NOT NULL,
     `title` VARCHAR(45) NOT NULL,
     `coverPicture` VARCHAR(200) NOT NULL,
     `intro` VARCHAR(250) NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE `Article` (
 
 -- CreateTable
 CREATE TABLE `Category` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(36) NOT NULL,
     `name` VARCHAR(45) NOT NULL,
     `sort` INTEGER NOT NULL DEFAULT 0,
     `status` BOOLEAN NOT NULL DEFAULT true,
@@ -61,18 +61,18 @@ CREATE TABLE `Category` (
 
 -- CreateTable
 CREATE TABLE `Comment` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(36) NOT NULL,
     `content` VARCHAR(500) NOT NULL,
     `status` BOOLEAN NOT NULL DEFAULT false,
     `createTime` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `articleId` VARCHAR(191) NOT NULL,
+    `articleId` VARCHAR(36) NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Reward` (
-    `id` VARCHAR(191) NOT NULL,
+    `id` VARCHAR(36) NOT NULL,
     `amount` DOUBLE NOT NULL DEFAULT 0,
     `payMethod` VARCHAR(45) NOT NULL,
     `createTime` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -82,8 +82,8 @@ CREATE TABLE `Reward` (
 
 -- CreateTable
 CREATE TABLE `_PermissionToRole` (
-    `A` VARCHAR(191) NOT NULL,
-    `B` VARCHAR(191) NOT NULL,
+    `A` VARCHAR(36) NOT NULL,
+    `B` VARCHAR(36) NOT NULL,
 
     UNIQUE INDEX `_PermissionToRole_AB_unique`(`A`, `B`),
     INDEX `_PermissionToRole_B_index`(`B`)
@@ -91,8 +91,8 @@ CREATE TABLE `_PermissionToRole` (
 
 -- CreateTable
 CREATE TABLE `_ArticleToCategory` (
-    `A` VARCHAR(191) NOT NULL,
-    `B` VARCHAR(191) NOT NULL,
+    `A` VARCHAR(36) NOT NULL,
+    `B` VARCHAR(36) NOT NULL,
 
     UNIQUE INDEX `_ArticleToCategory_AB_unique`(`A`, `B`),
     INDEX `_ArticleToCategory_B_index`(`B`)
