@@ -6,7 +6,7 @@ import { ApiTags } from '@nestjs/swagger'
 import { AuthGuard } from '@nestjs/passport'
 
 @Controller('categories')
-@UseGuards(AuthGuard('jwt'))
+// @UseGuards(AuthGuard('jwt'))
 @ApiTags('分类接口')
 export class CategoriesController {
   constructor(private readonly categoriesService: CategoriesService) {}

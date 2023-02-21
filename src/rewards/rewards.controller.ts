@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { RewardsService } from './rewards.service';
 import { CreateRewardDto } from './dto/create-reward.dto';
 import { UpdateRewardDto } from './dto/update-reward.dto';
@@ -13,22 +13,22 @@ export class RewardsController {
   }
 
   @Get()
-  findAll() {
-    return this.rewardsService.findAll();
+  findAll(@Query() query: {pageIndex: number, pageSize: number}) {
+    return this.rewardsService.findAll(query);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.rewardsService.findOne(+id);
+    return this.rewardsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateRewardDto: UpdateRewardDto) {
-    return this.rewardsService.update(+id, updateRewardDto);
+    return this.rewardsService.update(id, updateRewardDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.rewardsService.remove(+id);
+    return this.rewardsService.remove(id);
   }
 }
