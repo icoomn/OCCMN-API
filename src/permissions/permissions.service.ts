@@ -13,8 +13,20 @@ export class PermissionsService {
 		})
 	}
 
-	findAll() {
-		return this.prisma.permission.findMany()
+	async findAll(query: { keyWord: string, pageIndex: number, pageSize: number }) {
+		const list = await this.prisma.permission.findMany({
+			where: {
+                name: { contains: query.keyWord }
+            },
+            skip: (query.pageIndex - 1) * query.pageSize,
+            take: +query.pageSize
+		})
+		const total = await this.prisma.permission.count({
+			where: {
+				name: { contains: query.keyWord }
+			}
+		})
+		return { list, total }
 	}
 
 	findOne(id: string) {
