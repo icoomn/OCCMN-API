@@ -13,7 +13,7 @@ export class RolesController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.rolesService.findAll();
   }
 

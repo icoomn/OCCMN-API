@@ -13,8 +13,10 @@ export class RolesService {
 		})
 	}
 
-	findAll() {
-		return this.prisma.role.findMany()
+	async findAll() {
+		const list = await this.prisma.role.findMany()
+		const total = await this.prisma.role.count()
+		return { list, total }
 	}
 
 	findOne(id: string) {
