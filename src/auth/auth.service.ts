@@ -15,14 +15,26 @@ export class AuthService {
             where: {
                 name: authDto.name,
                 password: authDto.password
-            }
+            },
+			include: { role: true }
         })
+		const permissions = await this.prisma.permission.findMany({
+			where: {
+				roles: {
+					some: { id: account.roleId }
+				}
+			}
+		})
         if (account != null) {
-            return this.jwtService.sign({
-                id: 'bilibili'
+            const token = this.jwtService.sign({
+                occmn: 'YanYunFeng'
             }, {
                 secret: process.env.SECRET
             })
+			return {
+				token,
+				permissions
+			}
         } else {
             return {
                 code: '100',
@@ -31,11 +43,4 @@ export class AuthService {
             }
         }
     }
-
-    signupLocal(dto: AuthDto) {
-        
-    }
-    signinLocal() {}
-    logout() {}
-    refreshTokens() {}
 }

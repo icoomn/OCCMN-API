@@ -10,24 +10,4 @@ export class AuthController {
     login(@Body() authDto: AuthDto) {
         return this.authService.login(authDto)
     }
-
-    @Post('/local/signup')
-    signupLocal(@Body() dto: AuthDto) {
-        this.authService.signupLocal(dto)
-    }
-
-    @Post('/local/signin')
-    signinLocal() {
-        this.authService.signinLocal()
-    }
-
-    @Post('/logout')
-    logout() {
-        this.authService.logout()
-    }
-
-    @Post('/refresh')
-    refreshTokens() {
-        this.authService.refreshTokens()
-    }
 }
